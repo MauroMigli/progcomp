@@ -3,9 +3,8 @@ using namespace std;
 typedef long long ll;
 #define rep(i, n) for(int i = 0; i < n; i++)
 
-int dp(int mask_H, int mask_W){
-    
-}
+
+
 
 int main(){
     int H, W; cin >> H >> W;
@@ -14,7 +13,7 @@ int main(){
     
     map<int, int> freq_A, freq_B;
     rep(i, H) rep(j, W) {
-        cin >> A[i][j];
+        cin >> A[i][j]; // -> num
         freq_A[A[i][j]]++;
     }
     rep(i, H) rep(j, W) {
@@ -27,7 +26,7 @@ int main(){
         return 0;
     }
 
-    for()
+    
 
     return 0;
 }

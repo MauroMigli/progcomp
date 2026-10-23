@@ -16,7 +16,7 @@ int main(){
         cin >> S[i];
     }
 
-    for (auto [color, flavours]){
+    for (auto [c, flavours] : color){
         
     }
 

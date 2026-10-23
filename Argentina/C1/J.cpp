@@ -8,42 +8,39 @@ typedef pair<int, int> p;
 
 void solve() {
     int n; cin >> n;
-    vector<p> A(n);
-    vector<p> extremos(n);
-    vector<int> inicio;
-
+    
+    vector<p> list(n);
+    rep(i, n) {
+        cin >> list[i].first  >> list[i].second;
+    }
+    
+    vector<bool> visited(n, false);
+    vector<p> components;
+    
     rep(i, n){
-        cin >> A[i].first >> A[i].second;
-        A[i].first--; A[i].second--;
-        if (A[i].first == -1) inicio.push_back(i);
+        if (list[i].first != 0) continue;
+        if (visited[i]) continue;
+        
+        visited[i] = true;
+        int curr_idx = i;
+        while(list[curr_idx].second != 0){
+            curr_idx = list[curr_idx].second - 1;
+            visited[curr_idx] = true;
+        }
+
+        components.push_back({i, curr_idx});
+    }
+    
+    rep(i, (int)components.size() - 1){
+        auto [l, r] = components[i];
+        auto [l_next, r_next] = components[i + 1];
+        
+        list[r].second = l_next + 1;
+        list[l_next].first = r + 1;
     }
 
-    for(int idx : inicio){
-        int curr = idx;
-        while(A[curr].second != -1){
-            extremos[curr].first = idx;
-            curr = A[curr].second;
-        }
-        extremos[curr].first = idx;
-
-        int end = curr;
-        while(A[curr].first != -1){
-            extremos[curr].second = end;
-            curr = A[curr].first;
-        }
-        extremos[curr].second = end;
-    }
-
-    rep(i, n){
-        rep(j, n){
-            if (i == j) continue;
-            if (A[i].second == -1 && A[j].first == -1 && i != extremos[j].second && j != extremos[i].first){
-                A[i].second = j; A[j].first = i;
-            }
-        }
-    }
-    rep(i, n){
-        cout << A[i].first + 1 << ' ' << A[i].second + 1 << '\n';
+    for(auto [l, r] : list){
+        cout << l << ' ' << r << '\n';
     }
 }
 
